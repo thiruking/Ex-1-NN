@@ -90,6 +90,15 @@ print("Testing set size:", X_test.shape)
 
 
 ## OUTPUT:
+<img width="1042" height="522" alt="image" src="https://github.com/user-attachments/assets/05206fdd-0804-451f-bcde-5b8f5ea70b7b" />
+<img width="470" height="591" alt="image" src="https://github.com/user-attachments/assets/ea30865a-4e50-4b7e-b5f6-1448408ffd9e" />
+<img width="287" height="425" alt="image" src="https://github.com/user-attachments/assets/040ce13f-ff70-4704-82b4-1352a8d11fed" />
+<img width="1033" height="720" alt="image" src="https://github.com/user-attachments/assets/fd04e0c5-c22b-4bb7-b0ae-13ba875857bb" />
+<img width="937" height="703" alt="image" src="https://github.com/user-attachments/assets/55452c42-243f-4ff3-bf14-9230218902c7" />
+
+
+
+
 
 
 
