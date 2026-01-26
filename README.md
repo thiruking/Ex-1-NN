@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>THIRUMALAI K</H3>
+<H3>212224240176</H3>
 <H3>EX. NO.1</H3>
-<H3>DATE</H3>
+<H3>26/1/2026</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -37,11 +37,60 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+```python
+#Import libraries
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
+
+#Load dataset
+data = pd.read_csv("Churn_Modelling.csv")
+print("First 5 rows:\n", data.head())
+
+#Explore dataset
+print("\nDataset Info:\n")
+print(data.info())
+
+print("\nMissing Values:\n")
+print(data.isnull().sum())
+
+print("\nStatistical Summary:\n")
+print(data.describe())
+
+#Drop irrelevant columns
+# RowNumber, CustomerId, and Surname don't help prediction
+data = data.drop(['RowNumber','CustomerId','Surname'], axis=1)
+
+#Encode categorical variables (Geography, Gender)
+label = LabelEncoder()
+data['Geography'] = label.fit_transform(data['Geography'])
+data['Gender'] = label.fit_transform(data['Gender'])
+
+print("\nAfter Encoding:\n", data.head())
+
+#Separate features and target
+X = data.drop('Exited', axis=1).values   # features
+y = data['Exited'].values                # target
+
+#Normalize features
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)
+print("\nNormalized Features (first 5 rows):\n", X_scaled[:5])
+
+#Train-test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X_scaled, y, test_size=0.2, random_state=42
+)
+
+print("\nTraining set size:", X_train.shape)
+print("Testing set size:", X_test.shape)
+
+```
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+
 
 
 ## RESULT:
