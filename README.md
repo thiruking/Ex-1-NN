@@ -38,63 +38,68 @@ STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
 ```python
-#Import libraries
+#import libraries
 import pandas as pd
-import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
-#Load dataset
-data = pd.read_csv("Churn_Modelling.csv")
-print("First 5 rows:\n", data.head())
 
-#Explore dataset
-print("\nDataset Info:\n")
-print(data.info())
+#Read the dataset from drive
+df = pd.read_csv("Churn_Modelling.csv")   # CLG kudutha file name
+print(df.head())
 
-print("\nMissing Values:\n")
-print(data.isnull().sum())
 
-print("\nStatistical Summary:\n")
-print(data.describe())
+# Finding Missing Values
+print(df.isnull().sum())
 
-#Drop irrelevant columns
-# RowNumber, CustomerId, and Surname don't help prediction
-data = data.drop(['RowNumber','CustomerId','Surname'], axis=1)
 
-#Encode categorical variables (Geography, Gender)
-label = LabelEncoder()
-data['Geography'] = label.fit_transform(data['Geography'])
-data['Gender'] = label.fit_transform(data['Gender'])
+#Handling Missing values
+df.fillna(df.mean(numeric_only=True), inplace=True)
+print(df.isnull().sum())
 
-print("\nAfter Encoding:\n", data.head())
 
-#Separate features and target
-X = data.drop('Exited', axis=1).values   
-y = data['Exited'].values              
+#Check for Duplicates
+print("Duplicates:", df.duplicated().sum())
 
-#Normalize features
+
+#Detect Outliers (simple method using describe)
+print(df.describe())
+
+
+#Normalize the dataset (only numeric columns)
+num_df = df.select_dtypes(include='number')
 scaler = MinMaxScaler()
-X_scaled = scaler.fit_transform(X)
-print("\nNormalized Features (first 5 rows):\n", X_scaled[:5])
+df_norm = pd.DataFrame(scaler.fit_transform(num_df), columns=num_df.columns)
+print(df_norm.head())
 
-#Train-test split
-X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y, test_size=0.2, random_state=42
-)
 
-print("\nTraining set size:", X_train.shape)
-print("Testing set size:", X_test.shape)
+#split the dataset into input and output
+X = df_norm.iloc[:, :-1].values
+Y = df_norm.iloc[:, -1].values
+
+
+#splitting the data for training & Testing
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+
+
+#Print the training data and testing data
+print("Training Data:\n", X_train[:5])
+print("Testing Data:\n", X_test[:5])
+
 
 ```
 
 
 ## OUTPUT:
-<img width="1042" height="522" alt="image" src="https://github.com/user-attachments/assets/05206fdd-0804-451f-bcde-5b8f5ea70b7b" />
-<img width="470" height="591" alt="image" src="https://github.com/user-attachments/assets/ea30865a-4e50-4b7e-b5f6-1448408ffd9e" />
-<img width="287" height="425" alt="image" src="https://github.com/user-attachments/assets/040ce13f-ff70-4704-82b4-1352a8d11fed" />
-<img width="1033" height="720" alt="image" src="https://github.com/user-attachments/assets/fd04e0c5-c22b-4bb7-b0ae-13ba875857bb" />
-<img width="937" height="703" alt="image" src="https://github.com/user-attachments/assets/55452c42-243f-4ff3-bf14-9230218902c7" />
+<img width="822" height="292" alt="image" src="https://github.com/user-attachments/assets/5b84346a-f50f-42db-86f9-2b0f0262c078" />
+<img width="476" height="386" alt="image" src="https://github.com/user-attachments/assets/7988f22e-c9fe-4717-86b9-28feb494092a" /><img width="331" height="327" alt="image" src="https://github.com/user-attachments/assets/a917609f-7feb-4c72-8078-50c312604d42" />
+<img width="782" height="353" alt="image" src="https://github.com/user-attachments/assets/fa8a1bea-a9e0-4f58-8a5a-0289902ae696" />
+<img width="623" height="302" alt="image" src="https://github.com/user-attachments/assets/d1946c03-b475-40de-a68f-3acebdbce2a8" />
+<img width="681" height="212" alt="image" src="https://github.com/user-attachments/assets/f460251a-5a4f-44a8-9e7a-3bc4d6bf3763" />
+<img width="662" height="216" alt="image" src="https://github.com/user-attachments/assets/ae2f0707-d792-47a5-9e0d-8a63d16fb12b" />
+
+
 
 
 
