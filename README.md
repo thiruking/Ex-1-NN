@@ -1,7 +1,7 @@
 <H3>THIRUMALAI K</H3>
 <H3>212224240176</H3>
 <H3>EX. NO.1</H3>
-<H3>26/1/2026</H3>
+<H3>27/1/2026</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -70,8 +70,8 @@ data['Gender'] = label.fit_transform(data['Gender'])
 print("\nAfter Encoding:\n", data.head())
 
 #Separate features and target
-X = data.drop('Exited', axis=1).values   # features
-y = data['Exited'].values                # target
+X = data.drop('Exited', axis=1).values   
+y = data['Exited'].values              
 
 #Normalize features
 scaler = MinMaxScaler()
