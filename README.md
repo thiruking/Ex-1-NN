@@ -46,7 +46,7 @@ from sklearn.model_selection import train_test_split
 
 
 #Read the dataset from drive
-df = pd.read_csv("Churn_Modelling.csv")   # CLG kudutha file name
+df = pd.read_csv("Churn_Modelling.csv")   
 print(df.head())
 
 
